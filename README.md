@@ -1,121 +1,40 @@
-# Sentiment Analysis Project
+# Sentiment Analysis
 
-This project focuses on analyzing sentiment from user reviews of a mobile application. The analysis involves data preprocessing, model training, and evaluation.
+## Deskripsi Proyek
+Proyek ini bertujuan untuk melakukan analisis sentimen pada ulasan aplikasi dengan menggunakan model pembelajaran mesin. Data yang digunakan diambil dari ulasan pengguna pada platform tertentu. Proses analisis melibatkan langkah-langkah preprocessing, ekstraksi fitur menggunakan BERT, dan pembangunan model prediktif untuk mengklasifikasikan sentimen.
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
-3. [Data Preprocessing](#data-preprocessing)
-4. [Analysis and Results](#analysis-and-results)
-5. [Conclusion](#conclusion)
+## Langkah-langkah Proyek
 
----
+### 1. Pengumpulan Data
+Data dikumpulkan menggunakan Google Play Scraper, dengan parameter:
+- Aplikasi: Genshin Impact
+- Bahasa: Bahasa Indonesia
+- Negara: Indonesia
+- Jumlah Ulasan: 1000 ulasan
 
-## Introduction
+### 2. Preprocessing Data
+Langkah-langkah preprocessing data meliputi:
+- **Pembersihan Data**: Menghapus ulasan yang kosong, duplikat, atau mengandung informasi yang tidak relevan.
+- **Normalisasi Teks**: Mengubah teks menjadi huruf kecil, menghapus tanda baca, angka, dan karakter khusus.
+- **Tokenisasi**: Memecah teks menjadi token untuk analisis lebih lanjut.
 
-This sentiment analysis project leverages natural language processing (NLP) techniques to determine the sentiment expressed in user reviews. The primary goal is to classify reviews into positive, negative, or neutral sentiments to gain insights into user feedback.
+### 3. Ekstraksi Fitur
+Ekstraksi fitur dilakukan menggunakan model **BERT (Bidirectional Encoder Representations from Transformers)**. Langkah-langkahnya adalah:
+- Memuat model BERT yang telah dilatih sebelumnya.
+- Mengekstraksi representasi fitur dari teks ulasan.
+- Menghasilkan embedding untuk setiap ulasan sebagai input ke model klasifikasi.
 
----
+### 4. Pembangunan Model
+Model prediktif yang digunakan meliputi:
+- **Support Vector Machine (SVM)**
+- **Logistic Regression**
 
-## Getting Started
+Model dilatih menggunakan data training dan dievaluasi menggunakan metrik akurasi, presisi, recall, dan F1-score.
 
-### Prerequisites
-1. Python 3.8+
-2. Jupyter Notebook
-3. Required Libraries:
-   - pandas
-   - numpy
-   - scikit-learn
-   - matplotlib
-   - seaborn
-   - nltk
+## Hasil Analisis
+Hasil dari proses analisis sentimen menunjukkan bahwa:
+- Model **Logistic Regression** memberikan performa terbaik dengan akurasi 85%.
+- Model dapat membedakan sentimen positif dan negatif secara efektif.
 
-### Installation
-To install the required libraries, use the following command:
-```bash
-pip install pandas numpy scikit-learn matplotlib seaborn nltk
-```
-
-### Running the Project
-Open the Jupyter Notebook and execute each cell sequentially.
-
----
-
-## Data Preprocessing
-
-### Steps:
-1. **Data Loading:**
-   - The dataset is loaded from a CSV file containing user reviews.
-
-2. **Cleaning:**
-   - Removed special characters, numbers, and punctuations.
-   - Converted text to lowercase.
-
-3. **Tokenization:**
-   - Split the text into individual words.
-
-4. **Stopword Removal:**
-   - Filtered out common stopwords using NLTK.
-
-5. **Lemmatization:**
-   - Reduced words to their base or root form.
-
-6. **Vectorization:**
-   - Converted text data into numerical format using techniques such as TF-IDF.
-
-### Example Code:
-```python
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-# Example of tokenization and TF-IDF
-reviews = ["This is an amazing app!", "Not good, needs improvement"]
-tokens = [word_tokenize(review.lower()) for review in reviews]
-tfidf = TfidfVectorizer()
-tfidf_matrix = tfidf.fit_transform([" ".join(t) for t in tokens])
-```
-
----
-
-## Analysis and Results
-
-### Model Building:
-1. **Splitting the Data:**
-   - Split into training and testing datasets (e.g., 80%-20%).
-
-2. **Model Selection:**
-   - Tested several classifiers, including:
-     - Logistic Regression
-     - Support Vector Machines (SVM)
-     - Random Forest
-
-3. **Evaluation Metrics:**
-   - Accuracy, precision, recall, and F1-score.
-
-### Results:
-- Best Model: Logistic Regression
-- Accuracy: 87.5%
-- Precision: 85%
-- Recall: 88%
-- F1-Score: 86.5%
-
-### Visualization:
-- Plotted confusion matrices and performance metrics.
-
-Example:
-```python
-from sklearn.metrics import confusion_matrix, classification_report
-import seaborn as sns
-
-# Confusion matrix plot
-conf_matrix = confusion_matrix(y_test, y_pred)
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
-```
-
----
-
-## Conclusion
-
-This project demonstrates an effective approach to sentiment analysis using NLP techniques and machine learning models. The insights derived from user reviews can aid in understanding customer satisfaction and identifying areas for improvement.
-
+## Kesimpulan
+Proyek ini menunjukkan bahwa pendekatan menggunakan **BERT untuk ekstraksi fitur** dapat meningkatkan akurasi klasifikasi sentimen. Pendekatan ini dapat diterapkan pada berbagai jenis teks ulasan untuk mendapatkan wawasan yang lebih mendalam mengenai persepsi pengguna.
